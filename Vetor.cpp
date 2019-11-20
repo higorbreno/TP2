@@ -1,27 +1,6 @@
-#include <cmath>
-#include <iostream>
+#include "Vetor.h"
 
 const float pi = 3.14159f;
-
-struct CPolares {
-	float magnitude;
-	float angulo;
-};
-
-struct CCartesianas {
-	float x;
-	float y;
-};
-
-union VetorDeslocamento {
-	CPolares polar;
-	CCartesianas cartesiano;
-};
-
-struct Posicao {
-	float x;
-	float y;
-};
 
 Posicao DeslocarCartesiano(Posicao p, VetorDeslocamento v) {
 	p.x += v.cartesiano.x;
@@ -31,7 +10,7 @@ Posicao DeslocarCartesiano(Posicao p, VetorDeslocamento v) {
 
 Posicao DeslocarPolar(Posicao p, VetorDeslocamento v) {
 	p.x += (v.polar.magnitude * cos(v.polar.angulo * pi / 180));
-	p.y += (v.polar.magnitude * sin(v.polar.angulo * pi / 180));
+	p.y -= (v.polar.magnitude * sin(v.polar.angulo * pi / 180));
 	return p;
 }
 
@@ -52,6 +31,6 @@ std::istream& operator>>(std::istream& is, CCartesianas& cc) {
 }
 
 std::istream& operator>>(std::istream& is, CPolares& cp) {
-	is >> cp.magnitude >> cp.angulo;
+	is >> cp.angulo >> cp.magnitude;
 	return is;
 }

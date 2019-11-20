@@ -1,14 +1,4 @@
-#include "Vetor.h"
-#include "Cor.h"
-#include <iostream>
-
-struct Particula {
-	char nome[20];
-	Posicao posicao;
-	char tipo;
-	VetorDeslocamento vetor;
-	Cores cor;
-};
+#include "Particula.h"
 
 std::istream& operator>>(std::istream& is, Particula& particula) {
 	for (int i = 0;i < 20; i++) {

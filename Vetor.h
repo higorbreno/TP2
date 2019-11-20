@@ -1,9 +1,11 @@
 #include <cmath>
 #include <iostream>
+#ifndef __VETOR_H__
+#define __VETOR_H__
 
 struct CPolares {
-	float magnitude;
 	float angulo;
+	float magnitude;
 };
 
 struct CCartesianas {
@@ -30,3 +32,5 @@ Posicao DeslocarPolar(Posicao, VetorDeslocamento);
 std::istream& operator>>(std::istream&, CCartesianas&);
 
 std::istream& operator>>(std::istream&, CPolares&);
+
+#endif

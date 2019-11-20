@@ -1,6 +1,4 @@
-#include <iostream>
-
-enum Cores{Azul, Verde, Preto, Roxo, Branco};
+#include "Cor.h"
 
 std::istream& operator>>(std::istream& is, Cores& cor) {
 	int temp;
