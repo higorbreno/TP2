@@ -19,10 +19,34 @@ Posicao Deslocar(Posicao p, VetorDeslocamento v, char t) {
 	if (t == 'P') {
 		temp = DeslocarPolar(p, v);
 	}
-	else {
+	else if (t == 'C') {
 		temp = DeslocarCartesiano(p, v);
 	}
 	return temp;
+}
+
+VetorDeslocamento InverterVetorC(VetorDeslocamento v, char c) {
+	if (c == 'x') {
+		v.cartesiano.x *= -1;
+	}
+	else if (c == 'y') {
+		v.cartesiano.y *= -1;
+	}
+	return v;
+}
+
+VetorDeslocamento InverterVetorP(VetorDeslocamento v, char c) {
+	float dx = v.polar.magnitude * cos(v.polar.angulo * pi / 180);
+	float dy = v.polar.magnitude * sin(v.polar.angulo * pi / 180);
+	if (c == 'x') {
+		dx *= -1;
+		v.polar.angulo = atan((dy / dx) * 180 / pi);
+	}
+	else if (c == 'y') {
+		dy *= -1;
+		v.polar.angulo = atan((dy / dx) * 180 / pi);
+	}
+	return v;
 }
 
 std::istream& operator>>(std::istream& is, CCartesianas& cc) {

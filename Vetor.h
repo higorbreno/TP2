@@ -33,4 +33,8 @@ std::istream& operator>>(std::istream&, CCartesianas&);
 
 std::istream& operator>>(std::istream&, CPolares&);
 
+VetorDeslocamento InverterVetorC(VetorDeslocamento, char);
+
+VetorDeslocamento InverterVetorP(VetorDeslocamento, char);
+
 #endif
