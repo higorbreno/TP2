@@ -12,5 +12,6 @@ std::istream& operator>>(std::istream& is, Particula& particula) {
 		is >> particula.vetor.cartesiano;
 	}
 	is >> particula.cor;
+	is.ignore();
 	return is;
 }

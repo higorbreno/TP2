@@ -40,7 +40,12 @@ VetorDeslocamento InverterVetorP(VetorDeslocamento v, char c) {
 	float dy = v.polar.magnitude * sin(v.polar.angulo * pi / 180);
 	if (c == 'x') {
 		dx *= -1;
-		v.polar.angulo = atan((dy / dx) * 180 / pi);
+		if (v.polar.angulo >= 0 && v.polar.angulo <= 90 || v.polar.angulo <= 360 && v.polar.angulo >= 270) {
+			v.polar.angulo = atan((dy / dx) * 180 / pi) + 180;
+		}
+		else {
+			v.polar.angulo = atan((dy / dx) * 180 / pi);
+		}
 	}
 	else if (c == 'y') {
 		dy *= -1;
