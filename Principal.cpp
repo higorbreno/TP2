@@ -1,3 +1,4 @@
+#pragma warning(disable : 4996)
 #include <iostream>
 #include <random>
 #include "Vetor.h"
@@ -13,7 +14,7 @@ int main() {
 		cin >> particulas[i];
 	}
 
-	cout << "Simulação\n";
+	cout << "\nSimulação\n";
 	cout << "---------\n";
 	
 	int colisoes[100] = { 0 };
@@ -32,10 +33,7 @@ int main() {
 
 		Particula** part = new Particula * [tam];
 		int* pos = new int[tam];
-		char** colisoesNomes = new char* [tam];
-		for (int j = 0; i < tam; j++) {
-			colisoesNomes[j] = new char [20];
-		}
+		bool* pcol = new bool[tam];
 
 		for (int j = 0; j < tam; j++) {
 			pos[j] = dist(mt) - 1;
@@ -45,12 +43,17 @@ int main() {
 			part[j] = (particulas + pos[j]);
 		}
 
+		for (int j = 0; j < tam; j++) {
+			pcol[j] = 0;
+		}
+
 		int colisao = 0;
 		for (int j = 0; j < tam; j++) {
 			part[j]->posicao = Deslocar(part[j]->posicao, part[j]->vetor, part[j]->tipo);
 			if (part[j]->posicao.x >= 800 || part[j]->posicao.x <= 0) {
 
 				colisao++;
+				pcol[j] = 1;
 				if (part[j]->tipo == 'C') {
 					part[j]->vetor = InverterVetorC(part[j]->vetor, 'x');
 				}
@@ -59,10 +62,6 @@ int main() {
 				}
 
 				int posEspaco = part[j]->nome - strchr(part[j]->nome, ' ');
-
-				for (int k = 0; k < 20 && colisoesNomes[j][k] != '\0'; k++) {
-					colisoesNomes[j][k] = *(part[j]->nome + posEspaco + k + 1);
-				}
 
 				switch (part[j]->cor) {
 					case Azul: {
@@ -89,6 +88,7 @@ int main() {
 			}
 			if (part[j]->posicao.y >= 600 || part[j]->posicao.y <= 0) {
 				colisao++;
+				pcol[j] = 1;
 				if (part[j]->tipo == 'C') {
 					part[j]->vetor = InverterVetorC(part[j]->vetor, 'y');
 				}
@@ -97,10 +97,6 @@ int main() {
 				}
 
 				int posEspaco = part[j]->nome - strchr(part[j]->nome, ' ');
-
-				for (int k = 0; k < 20 && colisoesNomes[j][k] != '\0'; k++) {
-					colisoesNomes[j][k] = *(part[j]->nome + posEspaco + k);
-				}
 
 				switch (part[j]->cor) {
 					case Azul: {
@@ -136,25 +132,29 @@ int main() {
 		for (int j = 0; j < tam; j++) {
 			cout << pos[j] << " ";
 		}
-		cout << ") = " << colisao << " (";
+		cout << ") = " << colisao;
+			
+		if (colisao > 0) {
+			cout << " (";
 
-		for (int j = 0; j < tam; j++) {
-			cout << " " << colisoesNomes[j] << " ";
+			for (int j = 0; j < tam; j++) {
+				if (pcol[j]) {
+					cout << " " << strtok(part[j]->nome, " ") + strlen(strtok(part[j]->nome, " ")) + 1;
+				}
+			}
+			cout << " ";
+			cout << ")";
 		}
 
-		cout << ")\n";
+		cout << endl;
 
-		for (int j = 0; j < tam; j++) {
-			delete[] colisoesNomes[j];
-		}
-		delete[] colisoesNomes;
+		delete[] pcol;
 		delete[] part;
 		delete[] pos;
 		i++;
 	}
 	i--;
-
-	cout << "Resultado\n";
+	cout << "\nResultado\n";
 	cout << "----------\n";
 
 	int somaColisoes = 0;

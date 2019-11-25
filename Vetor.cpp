@@ -15,7 +15,7 @@ Posicao DeslocarPolar(Posicao p, VetorDeslocamento v) {
 }
 
 Posicao Deslocar(Posicao p, VetorDeslocamento v, char t) {
-	Posicao temp;
+	Posicao temp = { 0 };
 	if (t == 'P') {
 		temp = DeslocarPolar(p, v);
 	}
@@ -40,16 +40,11 @@ VetorDeslocamento InverterVetorP(VetorDeslocamento v, char c) {
 	float dy = v.polar.magnitude * sin(v.polar.angulo * pi / 180);
 	if (c == 'x') {
 		dx *= -1;
-		if (v.polar.angulo >= 0 && v.polar.angulo <= 90 || v.polar.angulo <= 360 && v.polar.angulo >= 270) {
-			v.polar.angulo = atan((dy / dx) * 180 / pi) + 180;
-		}
-		else {
-			v.polar.angulo = atan((dy / dx) * 180 / pi);
-		}
+		v.polar.angulo = acos(dx / v.polar.magnitude * 180 / pi);
 	}
 	else if (c == 'y') {
 		dy *= -1;
-		v.polar.angulo = atan((dy / dx) * 180 / pi);
+		v.polar.angulo = asin(dy / v.polar.magnitude * 180 / pi);
 	}
 	return v;
 }
