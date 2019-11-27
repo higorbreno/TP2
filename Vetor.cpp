@@ -4,7 +4,7 @@ const float pi = 3.14159f;
 
 Posicao DeslocarCartesiano(Posicao p, VetorDeslocamento v) {
 	p.x += v.cartesiano.x;
-	p.y += v.cartesiano.y;
+	p.y -= v.cartesiano.y;
 	return p;
 }
 
@@ -39,13 +39,12 @@ VetorDeslocamento InverterVetorP(VetorDeslocamento v, char c) {
 	float dx = v.polar.magnitude * cos(v.polar.angulo * pi / 180);
 	float dy = v.polar.magnitude * sin(v.polar.angulo * pi / 180);
 	if (c == 'x') {
-		dx *= -1;
-		v.polar.angulo = acos(dx / v.polar.magnitude * 180 / pi);
+		v.polar.angulo = atan2(dy, -dx) * 180 / pi;
 	}
 	else if (c == 'y') {
-		dy *= -1;
-		v.polar.angulo = asin(dy / v.polar.magnitude * 180 / pi);
+		v.polar.angulo = atan2(-dy, dx) * 180 / pi;
 	}
+
 	return v;
 }
 
