@@ -1,5 +1,6 @@
-#include "Particula.h"
+#include "Particula.h" // Inclusão do cabeçalho com os protótipos e registros declarados
 
+// Função operator que sobrecarrega o operador >> para ler variáveis do tipo Particula
 std::istream& operator>>(std::istream& is, Particula& particula) {
 	is.getline(particula.nome, 20, ':');
 	is >> particula.posicao.x;
